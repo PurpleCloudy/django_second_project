@@ -15,7 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rating.views import (
+    # SimpleView,
+    # SimpleFormView,
+    RatingsListView,
+    RatingEntryListView,
+    RatingDetailView,
+)
+from registration.views import RegistrationView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('', SimpleView.as_view()),
+    # path('form/', SimpleFormView.as_view())
+    path('', RatingsListView.as_view(), name = 'main'),
+    path('entry/<name>/', RatingEntryListView.as_view()),
+    path('rating/<int:pk>/', RatingDetailView.as_view()),
+    path('register/', RegistrationView.as_view())
 ]
