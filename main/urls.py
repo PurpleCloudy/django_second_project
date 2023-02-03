@@ -22,8 +22,8 @@ from rating.views import (
     RatingEntryListView,
     RatingDetailView,
 )
-from registration.views import RegistrationView
-
+from registration.views import RegistrationView, LoginViewNas, ProfileView
+from pagination_example.views import pagination_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,5 +32,8 @@ urlpatterns = [
     path('', RatingsListView.as_view(), name = 'main'),
     path('entry/<name>/', RatingEntryListView.as_view()),
     path('rating/<int:pk>/', RatingDetailView.as_view()),
-    path('register/', RegistrationView.as_view())
+    path('register/', RegistrationView.as_view()),
+    path('login/', LoginViewNas.as_view(), name = 'login'),
+    path('accounts/profile/', ProfileView.as_view()),
+    path('pagination_example/', pagination_view)
 ]
