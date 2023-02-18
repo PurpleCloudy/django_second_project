@@ -6,12 +6,13 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
-from .models import Rating
+from .models import Rating, Subject
 
 class RatingsListView(ListView):
-    # model = Rating
-    queryset = Rating.objects.all()
+    model = Subject
+    paginate_by = 2
     context_object_name = 'rating_objects'
+    template_name = 'rating/rating_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -23,7 +24,7 @@ class RatingEntryListView(ListView):
     context_object_name = 'rating_name_objects'
 
     def get_queryset(self):
-        return Rating.objects.filter(name=self.kwargs['name'])
+        return Subject.objects.filter(name=self.kwargs['name'])
 
 @method_decorator(login_required, name = 'dispatch')
 class SimpleView(View):
@@ -49,4 +50,5 @@ class SimpleFormView(View):
         return render(request, self.template_name, {'form':form})
     
 class RatingDetailView(DetailView):
-    model = Rating
+    model = Subject
+    template_name = 'rating/rating_detail.html'
